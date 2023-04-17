@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=67.6", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["AStared"]
+
+[project]
+name = "AStart"
+version = "0.1.0"
+authors = [{name = "ThunderTecke", email = "thunder.tecke@gmail.com"}]
+maintainers = [{name = "ThunderTecke", email = "thunder.tecke@gmail.com"}]
+keywords = ["Python", "AStar", "Algorithm", "Pathfinding"]
+description = "AStar python implementatino"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {file = "LICENSE"}
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Education",
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/ThunderTecke/AStared"
+"Bug Tracker" = "https://github.com/ThunderTecke/AStared/issues"
+"Change log" = "https://github.com/ThunderTecke/AStared/blob/main/CHANGELOG.md"
