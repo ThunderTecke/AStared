@@ -1,11 +1,18 @@
+# This example describe how to use AStared package with a hexagonal grid
+# You can find more information about using hexagonal grid here : https://www.redblobgames.com/grids/hexagons/
+
 from AStared.AStared import Node, AStar
 
+# Define the heuristic function that estimate the remaining distance
+# This function needs to return a number to estimate the remaining distance to the end node
+# In this example I use the function describe on the web page given above.
 def heuristic(coord1, coord2):
     q1, r1 = coord1
     q2, r2 = coord2
 
     return  (abs(q1 - q2) + abs(q1 + r1 - q2 - r2) + abs(r1 - r2)) / 2
 
+# Maps, 1 => wall, 0 => valid path
 map = [      [0,0,0,0,0,0],
             [0,0,0,0,0,0,0],
            [0,0,1,1,1,1,0,0],
@@ -18,6 +25,7 @@ map = [      [0,0,0,0,0,0],
             [0,0,0,0,0,0,0],
              [0,0,0,0,0,0]]
 
+# This function is used to translate axial coordinate to indexes for the map
 def AxialToMap(q, r):
     x = y = 0
     match (r):
@@ -67,19 +75,27 @@ def AxialToMap(q, r):
     
     return x, y
 
+# Get neighbours in the map
+# This function needs to get node's coordinate and return a list of Node. Coordinates are not used inside the A* algorithm, so it can be anything you want.
+# It's your work to define an heuristic function that can use these coordinates.
+# Neighbours are the node that can be reached with only 1 step.
+# In this case in a hexagonal grid, it can be the 6 nodes around a node.
 def neighbours(coords):
     neighbours = []
 
+    # Iterate through the possible movements
     for qOffset, rOffset in [(+1, 0), (0, +1), (-1, +1), (-1, 0), (0, -1), (+1, -1)]:
         newQ = coords[0] + qOffset
         newR = coords[1] + rOffset
 
+        # Check if the new coords are outside the map
         if newQ < -5 or newQ > 5:
             continue
         
         if newR < -5 or newR > 5:
             continue
 
+        # Check if new coord ar in a wall
         x, y = AxialToMap(newQ, newR)
 
         if map[y][x] == 1:
@@ -89,4 +105,5 @@ def neighbours(coords):
     
     return neighbours
 
+# Call A* algorithm; with start and end nodes, and also the function created before
 print(AStar(Node((0, 0)), Node((+5, -5)), neighboursFunction=neighbours, heuristicFunction=heuristic))
